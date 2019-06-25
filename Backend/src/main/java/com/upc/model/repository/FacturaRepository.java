@@ -12,7 +12,7 @@ import com.upc.model.entity.Factura;
 
 @Repository
 public interface FacturaRepository extends JpaRepository<Factura, Integer> {
-    @Query(value = "SELECT f FROM facturas f WHERE f.reserva = f.fecha_generacion = :fecha", nativeQuery = true)
+    @Query(value = "SELECT * FROM facturas f WHERE f.fecha_generacion = :fecha", nativeQuery = true)
     List<Factura> getFacturasDia(@Param("fecha") Date fecha);
     
     @Query(value = "SELECT SUM(d.cantidad*c.precio) FROM detalle_ordenes AS d, comidas AS c WHERE d.orden_id = :id AND d.comida_id=c.id", nativeQuery = true)

@@ -1,0 +1,12 @@
+<router-outlet></router-outlet>
+
+<mat-toolbar>Registrar una mesa</mat-toolbar>
+
+<div class="example-container">
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Capacidad" [(ngModel)]="capacidad">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="agregarMesa()" [disabled]="estadoBotonMesa()">Agregar mesa</button>
+</div>

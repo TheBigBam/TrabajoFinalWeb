@@ -15,7 +15,7 @@ export class OrdenListarComponent implements OnInit {
   dataSource: MatTableDataSource<Orden>
   displayedColumns=['id','mesa','mesero','nro_clientes','fecha','detalle_orden','activa','acciones'];
   activas: number[] = [];
-  idx: number;
+  idx: number = 0;
 
   constructor(private ordenService: OrdenService,private facturaService: FacturaService, private snackBar: MatSnackBar) { }
 
@@ -71,7 +71,7 @@ export class OrdenListarComponent implements OnInit {
   
     this.facturaService.registrar(factura).subscribe(data => {
       this.snackBar.open("Factura emitida.", "Aviso", { duration: 2000 });
-      if(this.idx = 0){
+      if(this.idx === 0){
         this.filtrarTodas();
       }
       else{

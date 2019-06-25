@@ -20,6 +20,10 @@ export class FacturaService {
     return this.http.get<Factura>(`${this.url}/${id}`);
   }
 
+  listarFacturasPorFecha(fecha: string) {
+    return this.http.get<Factura[]>(`${this.url}/fecha/${fecha}`);
+  }
+
   registrar(factura: Factura) {
     return this.http.post(this.url, factura);
   }

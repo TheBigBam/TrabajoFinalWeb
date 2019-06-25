@@ -14,6 +14,7 @@ import { OrdenModificarComponent } from './pages/orden/orden-listar/orden-modifi
 import { FacturaComponent } from './pages/factura/factura.component';
 import { MeseroComponent } from './pages/mesero/mesero.component';
 import { ComidaComponent } from './pages/comida/comida.component';
+import { MesaComponent } from './pages/mesa/mesa.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ComidaComponent } from './pages/comida/comida.component';
     OrdenListarComponent,
     FacturaComponent,
     MeseroComponent,
-    ComidaComponent
+    ComidaComponent,
+    MesaComponent
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,15 @@
 package com.upc.controller;
 
 import java.net.URI;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,7 +44,7 @@ public class FacturaController {
 	
 	@ApiOperation("Retorna una lista de facturas correspondiente a la fecha dada")
 	@GetMapping(value = "/fecha/{date}")
-	public ResponseEntity<List<Factura>> listarFecha(@PathVariable("date") Date date){
+	public ResponseEntity<List<Factura>> listarFecha(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
 		List<Factura> facturas = new ArrayList<>();
 		facturas = facturaService.getFacturasDia(date);
 		return new ResponseEntity<List<Factura>>(facturas, HttpStatus.OK);

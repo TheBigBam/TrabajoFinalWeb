@@ -29,4 +29,14 @@
 
     </mat-row>
   </mat-table>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Ingrese fecha" [max]="maxFecha" [(ngModel)]="fecha">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+
+    <button mat-raised-button color="primary" style="float: left" (click)="buscarPorFecha()">Buscar por fecha</button>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" style="float: right" (click)="buscarTodas()">Buscar todas</button>
 </div>

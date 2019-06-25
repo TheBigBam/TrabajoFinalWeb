@@ -6,6 +6,7 @@ import { OrdenModificarComponent } from './pages/orden/orden-listar/orden-modifi
 import { FacturaComponent } from './pages/factura/factura.component';
 import { MeseroComponent } from './pages/mesero/mesero.component';
 import { ComidaComponent } from './pages/comida/comida.component';
+import { MesaComponent } from './pages/mesa/mesa.component';
 
 const routes: Routes = [
   {path:'ordenes', component:OrdenComponent, children:[
@@ -15,7 +16,8 @@ const routes: Routes = [
   ]},
   {path:'facturas', component:FacturaComponent},
   {path:'meseros', component:MeseroComponent},
-  {path:'comidas', component:ComidaComponent}
+  {path:'comidas', component:ComidaComponent},
+  {path:'mesas', component:MesaComponent}
 ];
 
 @NgModule({
