@@ -1,8 +1,8 @@
 package com.upc.controller;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +60,6 @@ public class OrdenController {
 		return new ResponseEntity<Orden>(orden.get(), HttpStatus.OK);
 	}
 	
-	/*
 	@ApiOperation("Registra una orden")
 	@PostMapping
 	public ResponseEntity<Orden> registrar(@Valid @RequestBody Orden orden){
@@ -69,8 +68,8 @@ public class OrdenController {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(NewOrden.getId()).toUri();
 		return ResponseEntity.created(location).build();		
 	}
-	*/
 	
+	/*
 	@ApiOperation("Registrar pedidos con una orden asociada")
 	@PostMapping
 	public ResponseEntity<Orden> registrarPedidos(@Valid @RequestBody Orden orden) {
@@ -80,7 +79,7 @@ public class OrdenController {
 				.toUri();
 		return ResponseEntity.created(location).build();
 	}
-	
+	*/
 	@ApiOperation("Actualiza los datos de una orden")
 	@PutMapping
 	public ResponseEntity<Orden> actualizar(@Valid @RequestBody Orden orden) {		
@@ -97,5 +96,24 @@ public class OrdenController {
 		} else {
 			ordenService.eliminar(id);
 		}
+	}
+	
+	@ApiOperation("Retorna la lista completa de ordenes activas")
+	@GetMapping(value = "/activas/")
+	public ResponseEntity<List<Orden>> listarActivas(){
+		List<Orden> ordens = new ArrayList<>();
+		ordens = ordenService.getActiveOrders();
+		return new ResponseEntity<List<Orden>>(ordens, HttpStatus.OK);
+	}
+	
+	@ApiOperation("Retorna si la orden con el id dado está activa")
+	@GetMapping(value = "/activas/{id}")
+	public ResponseEntity<Integer> isActive(@PathVariable("id") Integer id) {
+		Optional<Orden> orden = ordenService.listId(id);
+		if (!orden.isPresent()) {
+			throw new ModeloNotFoundException("ID: " + id);
+		}
+		
+		return new ResponseEntity<Integer>(ordenService.isActive(orden.get().getId()), HttpStatus.OK);
 	}
 }

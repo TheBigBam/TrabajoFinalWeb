@@ -1,0 +1,55 @@
+<router-outlet></router-outlet>
+
+<mat-toolbar>Registrar orden</mat-toolbar>
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-form-field>
+    <mat-select placeholder="Mesero" [(value)]="meseroSeleccionado" disableRipple>
+      <mat-option *ngFor="let m of meseros" [value]="m">{{m.nombre + ' ' + m.apellido}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Mesa" [(value)]="mesaSeleccionada" disableRipple>
+      <mat-option *ngFor="let m of mesas; let i=index" [value]="m" [disabled]="mesaOcupada(i)">{{"Número: " + m.id + " / Capacidad: " + m.capacidad + " / Estado: " + m.estado}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Nro. clientes" [(ngModel)]="nroClientes">
+  </mat-form-field>
+
+  <mat-toolbar>Agregar comida</mat-toolbar>
+
+  <mat-form-field>
+    <mat-select placeholder="Comidas" [(value)]="comidaSeleccionada" disableRipple>
+      <mat-option *ngFor="let c of comidas" [value]="c">{{"Nombre: " + c.nombre + " / Precio: " + c.precio}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Cantidad" [(ngModel)]="cantidadComidaSeleccionada">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="agregarComida()" [disabled]="estadoBotonComida()">Agregar comida</button>
+
+  <mat-list role="list" *ngFor="let d of detallesOrden; let i=index">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{i + 1 + ": Nombre: " + d.comida.nombre + " / Cantidad: " + d.cantidad}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <button mat-raised-button color="warn" (click)="removerComida(i)">Remover</button>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-list>
+
+  <button mat-raised-button color="primary" (click)="agregarOrden()" [disabled]="estadoBotonOrden()">Agregar orden</button>
+</div>
+
+<button mat-raised-button color="primary" style="float: left" routerLink='/ordenes/listar'>
+  <mat-icon>create</mat-icon>Listar ordenes
+</button>

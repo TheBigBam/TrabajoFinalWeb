@@ -1,0 +1,39 @@
+<div class="example-container">
+  <mat-toolbar color="primary" class="example-toolbar">
+      <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+          <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+      </button>
+
+      <h1 class="example-app-name">Restaurante</h1>
+
+      <span class="example-spacer"></span>
+
+      <mat-menu #menu="matMenu"></mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container" >
+      <mat-sidenav #sidenav mode="side" style="width: 200px" >
+          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/meseros" style="cursor: pointer" >
+              <span>Meseros</span>
+          </button>
+
+        <button mat-menu-item (click)="sidenav.toggle()" routerLink="/comidas" style="cursor: pointer" >
+            <span>Comidas</span>
+        </button>
+
+        <button mat-menu-item (click)="sidenav.toggle()" routerLink="/ordenes" style="cursor: pointer" >
+            <span>Ordenes</span>
+        </button>
+
+        <button mat-menu-item (click)="sidenav.toggle()" routerLink="/facturas" style="cursor: pointer" >
+            <span>Facturas</span>
+        </button>
+    </mat-sidenav>
+
+      <mat-sidenav-content>
+          <router-outlet></router-outlet>
+      </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

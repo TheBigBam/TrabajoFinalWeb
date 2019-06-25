@@ -10,5 +10,6 @@ import com.upc.model.entity.Orden;
 @Service
 public interface OrdenService extends CrudService<Orden> {
 	List<Orden> getOrdenesDia(Date fecha);
-	Orden registrarPedidos(Orden orden);
+	Integer isActive(Integer id);
+	List<Orden> getActiveOrders();
 }

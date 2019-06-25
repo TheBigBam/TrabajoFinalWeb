@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.upc.model.entity.Factura;
 import com.upc.model.repository.FacturaRepository;
+import com.upc.model.repository.MesaRepository;
 import com.upc.service.FacturaService;
 
 @Service
@@ -17,13 +18,16 @@ public class FacturaServiceImpl implements FacturaService{
 	
 	@Autowired
 	FacturaRepository facturaRepository;
+	
+	@Autowired
+	MesaRepository mesaRepository;
 
 	@Transactional
 	@Override
 	public Factura registrar(Factura t) {
-		Float monto_total=facturaRepository.CalculoMontoFinal(t.getId());
+		Float monto_total=facturaRepository.calculoMontoFinal(t.getOrden().getId());
 		t.setMonto_total(monto_total);
-		facturaRepository.ParcheMesa(t.getId());
+		mesaRepository.setEstadoMesa(t.getOrden().getMesa().getId(), "Disponible");
 		return facturaRepository.save(t);
 	}
 

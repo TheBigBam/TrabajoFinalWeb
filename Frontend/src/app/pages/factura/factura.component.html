@@ -1,0 +1,32 @@
+<router-outlet></router-outlet>
+
+<mat-toolbar>Lista de facturas</mat-toolbar>
+
+<div class="example-container">
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="orden">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID de la orden</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.orden.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="monto">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Monto total</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.monto_total}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.fecha_generacion}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+
+    </mat-row>
+  </mat-table>
+</div>

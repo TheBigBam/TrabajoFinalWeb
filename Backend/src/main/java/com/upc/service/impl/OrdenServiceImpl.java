@@ -11,28 +11,41 @@ import org.springframework.stereotype.Service;
 
 import com.upc.model.entity.Orden;
 import com.upc.model.repository.DetalleOrdenRepository;
+import com.upc.model.repository.MesaRepository;
 import com.upc.model.repository.OrdenRepository;
 import com.upc.service.OrdenService;
 
 @Service
 public class OrdenServiceImpl implements OrdenService{
-	
-
 	@Autowired
 	OrdenRepository ordenRepository;
 	
 	@Autowired
+	MesaRepository mesaRepository;
+	
+	@Autowired
 	DetalleOrdenRepository detalleOrdenRepository;
 
+	@Transactional
 	@Override
-	public Orden registrar(Orden t) {
-		System.out.println(t.getNro_clientes());
-		return ordenRepository.save(t);
+	public Orden registrar(Orden orden) {
+		orden.getDetalle_orden().forEach(detalle->
+		detalle.setOrden(orden));
+		
+		mesaRepository.setEstadoMesa(orden.getMesa().getId(), "Ocupada");
+		ordenRepository.save(orden);
+				
+		return orden;
 	}
 
+	@Transactional
 	@Override
 	public Orden modificar(Orden t) {
-		ordenRepository.ParcheMesa(t.getMesa().getId());
+		detalleOrdenRepository.eliminarDetallesDeOrdenID(t.getId());
+		
+		t.getDetalle_orden().forEach(detalle->
+		detalle.setOrden(t));
+		
 		return ordenRepository.save(t);
 	}
 
@@ -56,14 +69,18 @@ public class OrdenServiceImpl implements OrdenService{
 		return ordenRepository.findAll();
 	}
 	
-	@Transactional
 	@Override
-	public Orden registrarPedidos(Orden orden) {
-		orden.getDetalle_orden().forEach(detalle->
-		detalle.setOrden(orden));
+	public Integer isActive(Integer id) {
+		Integer temp = ordenRepository.isActive(id);
+		if(temp == 0) {
+			return 1;
+		}
 		
-		ordenRepository.save(orden);
-				
-		return orden;
+		return 0;
+	}
+	
+	@Override
+	public List<Orden> getActiveOrders(){
+		return ordenRepository.getActiveOrders();
 	}
 }

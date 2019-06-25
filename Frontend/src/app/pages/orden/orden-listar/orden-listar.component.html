@@ -1,0 +1,77 @@
+<router-outlet></router-outlet>
+
+<mat-toolbar>Lista de órdenes</mat-toolbar>
+
+<div class="example-container">
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="mesa">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nº de mesa</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.mesa.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="mesero">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre del mesero</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.mesero.nombre + " " + row.mesero.apellido}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nro_clientes">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nº de clientes</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nro_clientes}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.fecha_generacion}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="activa">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i=index">
+        <div *ngIf="isActiva(i); else elseBlock">Activa</div>
+        <ng-template #elseBlock>Finalizada</ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="detalle_orden">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Detalle de la orden</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-expansion-panel>
+        <mat-expansion-panel-header>Detalle de la orden</mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <mat-list dense>
+              <mat-list-item *ngFor="let d of row.detalle_orden; let i=index">
+                {{i + 1 + ": " + d.comida.nombre + " / Cantidad: " + d.cantidad}}
+              </mat-list-item>
+            </mat-list>
+          </ng-template>
+        </mat-expansion-panel>   
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i=index">
+        <button mat-raised-button color="primary" [disabled] = "ordenFinalizada(i)" style="float: left" [routerLink]="['modificar', row.id]">Modificar</button>
+        <button mat-raised-button color="primary" [disabled] = "ordenFinalizada(i)" style="float: right" (click)="emitirFactura(row)">Emitir factura</button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+
+    </mat-row>
+  </mat-table>
+</div>
+
+<button mat-raised-button color="primary" style="float: left" (click)="filtrarTodas()">
+Ver todas las órdenes
+</button>
+
+<button mat-raised-button color="primary" style="float: right" (click)="filtrarActivas()">
+Ver órdenes activas
+</button>
