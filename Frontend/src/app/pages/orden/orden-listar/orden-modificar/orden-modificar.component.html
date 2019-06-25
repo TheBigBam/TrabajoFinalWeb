@@ -10,7 +10,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Cantidad" [(ngModel)]="cantidadComidaSeleccionada">
+    <input matInput type="number" placeholder="Cantidad" [(ngModel)]="cantidadComidaSeleccionada">
   </mat-form-field>
 
   <button mat-raised-button color="primary" (click)="agregarComida()" [disabled]="estadoBotonComida()">Agregar comida</button>

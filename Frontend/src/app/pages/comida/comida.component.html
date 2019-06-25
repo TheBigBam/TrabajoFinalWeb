@@ -1,3 +1,20 @@
-<p>
-  comida works!
-</p>
+<router-outlet></router-outlet>
+
+<mat-toolbar>Registrar una comida</mat-toolbar>
+
+<div class="example-container">
+
+  <mat-form-field>
+    <input matInput placeholder="Nombre" [(ngModel)]="nombre">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Descripción" [(ngModel)]="descripcion">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Precio" [(ngModel)]="precio">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="agregarComida()" [disabled]="estadoBotonComida()">Agregar comida</button>
+</div>

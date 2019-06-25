@@ -17,7 +17,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Nro. clientes" [(ngModel)]="nroClientes">
+    <input matInput type="number" placeholder="Nro. clientes" [(ngModel)]="nroClientes">
   </mat-form-field>
 
   <mat-toolbar>Agregar comida</mat-toolbar>
@@ -29,7 +29,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Cantidad" [(ngModel)]="cantidadComidaSeleccionada">
+    <input matInput type="number" placeholder="Cantidad" [(ngModel)]="cantidadComidaSeleccionada">
   </mat-form-field>
 
   <button mat-raised-button color="primary" (click)="agregarComida()" [disabled]="estadoBotonComida()">Agregar comida</button>

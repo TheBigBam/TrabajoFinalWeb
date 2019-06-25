@@ -1,3 +1,26 @@
-<p>
-  mesero works!
-</p>
+<router-outlet></router-outlet>
+
+<mat-toolbar>Registrar un mesero</mat-toolbar>
+
+<div class="example-container">
+
+  <mat-form-field>
+    <input matInput placeholder="Nombre" [(ngModel)]="nombre">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Apellido" [(ngModel)]="apellido">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="DNI" [(ngModel)]="dni">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento" [max]="maxFecha" [(ngModel)]="fecha_nacimiento">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="agregarMesero()" [disabled]="estadoBotonMesero()">Registrar mesero</button>
+</div>
